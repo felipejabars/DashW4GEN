@@ -53,7 +53,7 @@ function pct(v){return num(v)}
 function rows(a){let h=a[0].map(x=>String(x??'').trim());return a.slice(1).filter(r=>r.some(x=>x!==null&&x!=='')).map(r=>Object.fromEntries(h.map((k,i)=>[k,r[i]])))}
 function typeFrom(name,arr){let s=norm(name+' '+(arr[0]||[]).join(' '));if(s.includes('AWARENESS'))return'AWARENESS';if(s.includes('ADERENCIA')||s.includes('AGENDA'))return'AGENDA';if(s.includes('VISITAS DU')||s.includes('PROD MEDIA'))return'VISITAS DU';if(s.includes('NET CHURN'))return'NET CHURN';if(s.includes('ACIONAVEIS'))return'ACIONAVEIS';if(s.includes('TPV'))return'TPV';if(s.includes('SCORE GERAL'))return'SCORE';return null}
 function get(type,name){let a=db[type]||[];return a.find(r=>canon(r['Executivo'])===canon(name))||{}}
-function fmtPct(x){return (x||0).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:2})+'%'}
+function fmtPct(x){x=Number(x)||0;if(Math.abs(x)<=1)x*=100;return x.toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:2})+'%'}
 function money(x){return (x||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0})}
 function scoreAw(x){return x>=47.5?1.5:x>=42.75?1.2:x>=40.38?.9:x>=38?.6:x>=35.63?.3:0}
 function scoreAg(x){return x>=65?1:x>=58.5?.8:x>=55.25?.6:x>=52?.4:x>=48.75?.2:0}
